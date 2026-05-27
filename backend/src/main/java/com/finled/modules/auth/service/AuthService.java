@@ -8,6 +8,7 @@ import com.finled.modules.tenant.repository.TenantRepository;
 import com.finled.modules.user.entity.User;
 import com.finled.modules.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,7 +44,11 @@ public class AuthService {
                 .createdAt(LocalDateTime.now())
                 .build();
 
-        tenantRepository.save(tenant);
+        try {
+            tenantRepository.saveAndFlush(tenant);
+        } catch (DataAccessException e) {
+            throw new BadRequestException("Failed to create tenant. Please verify tenant details and try again.");
+        }
 
         User owner = User.builder()
                 .fullName(request.getFullName())
@@ -54,6 +59,11 @@ public class AuthService {
                 .createdAt(LocalDateTime.now())
                 .build();
 
-        userRepository.save(owner);
+        try {
+            userRepository.saveAndFlush(owner);
+        } catch (DataAccessException e) {
+            throw new BadRequestException("Failed to create user. Please verify user details and try again.");
+        }
+        
     }
 }

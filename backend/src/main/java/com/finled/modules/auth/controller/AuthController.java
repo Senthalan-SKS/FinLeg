@@ -19,7 +19,6 @@ public class AuthController {
     public ResponseEntity<ApiResponse<Object>> register(
             @Valid @RequestBody RegisterTenantRequest request
     ) {
-
         authService.registerTenant(request);
 
         return ResponseEntity.ok(
