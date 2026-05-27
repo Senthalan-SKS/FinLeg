@@ -1,9 +1,9 @@
-package com.finled.modules;
+package com.finled;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = "com.finled")
+@SpringBootApplication
 public class FinLedApplication {
 
 	public static void main(String[] args) {
