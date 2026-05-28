@@ -13,3 +13,7 @@ spring:
         format_sql: true
 
     show-sql: true
+    
+jwt:
+  secret: your-very-long-256-bit-secret-key-here
+  expiration: 86400000

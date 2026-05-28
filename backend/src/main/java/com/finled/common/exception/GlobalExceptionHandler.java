@@ -2,6 +2,7 @@ package com.finled.common.exception;
 
 import com.finled.common.response.ApiResponse;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.TransactionSystemException;
@@ -46,6 +47,16 @@ public class GlobalExceptionHandler {
                 ApiResponse.builder()
                         .success(false)
                         .message("Database operation failed. Please verify input and try again.")
+                        .build()
+        );
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ApiResponse<Object>> handleAuthentication(AuthenticationException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+                ApiResponse.builder()
+                        .success(false)
+                        .message("Invalid credentials")
                         .build()
         );
     }
