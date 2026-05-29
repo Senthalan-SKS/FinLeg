@@ -1,0 +1,16 @@
+package com.finled.modules.accounting.account.repository;
+
+import com.finled.modules.accounting.account.entity.Account;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
+import java.util.UUID;
+
+public interface AccountRepository
+        extends JpaRepository<Account, UUID> {
+
+    Optional<Account> findByIdAndTenantId(
+            UUID id,
+            UUID tenantId
+    );
+}
