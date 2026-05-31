@@ -2,15 +2,16 @@ package com.finled.modules.accounting.account.controller;
 
 import com.finled.common.response.ApiResponse;
 import com.finled.modules.accounting.account.dto.CreateAccountRequest;
-import com.finled.modules.accounting.account.dto.UpdateAccountRequest;
 import com.finled.modules.accounting.account.dto.AccountResponse;
+import com.finled.modules.accounting.account.dto.UpdateAccountRequest;
 import com.finled.modules.accounting.account.service.AccountService;
 import com.finled.modules.auth.security.userdetails.CustomUserDetails;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import jakarta.validation.Valid;
-import org.springframework.security.core.Authentication;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -25,13 +26,8 @@ public class AccountController {
     public ResponseEntity<ApiResponse<UUID>> create(
             @Valid @RequestBody CreateAccountRequest request,
             Authentication authentication
-
     ) {
-
-       UUID tenantId = ((CustomUserDetails) authentication.getPrincipal())
-                    .getUser()
-                    .getTenant()
-                    .getId();
+        UUID tenantId = getTenantId(authentication);
 
         UUID id = accountService.create(
                 tenantId,
@@ -52,16 +48,13 @@ public class AccountController {
             @PathVariable UUID id,
             Authentication authentication
     ) {
-         UUID tenantId = ((CustomUserDetails) authentication.getPrincipal())
-                    .getUser()
-                    .getTenant()
-                    .getId();
+        UUID tenantId = getTenantId(authentication);
 
         return ResponseEntity.ok(
                 ApiResponse.<AccountResponse>builder()
                         .success(true)
                         .data(
-                                accountService.getById(tenantId,id)
+                                accountService.getById(tenantId, id)
                         )
                         .build()
         );
@@ -71,10 +64,7 @@ public class AccountController {
     public ResponseEntity<ApiResponse<List<AccountResponse>>> getAll(
             Authentication authentication
     ) {
-        UUID tenantId = ((CustomUserDetails) authentication.getPrincipal())
-                    .getUser()
-                    .getTenant()
-                    .getId();
+        UUID tenantId = getTenantId(authentication);
 
         return ResponseEntity.ok(
                 ApiResponse.<List<AccountResponse>>builder()
@@ -92,10 +82,7 @@ public class AccountController {
             @Valid @RequestBody UpdateAccountRequest request,
             Authentication authentication
     ) {
-        UUID tenantId = ((CustomUserDetails) authentication.getPrincipal())
-                    .getUser()
-                    .getTenant()
-                    .getId();
+        UUID tenantId = getTenantId(authentication);
 
         accountService.update(tenantId, id, request);
 
@@ -112,12 +99,9 @@ public class AccountController {
             @PathVariable UUID id,
             Authentication authentication
     ) {
-        UUID tenantId = ((CustomUserDetails) authentication.getPrincipal())
-                    .getUser()
-                    .getTenant()
-                    .getId();
+        UUID tenantId = getTenantId(authentication);
 
-        accountService.deactivate( tenantId, id );
+        accountService.deactivate(tenantId, id);
 
         return ResponseEntity.ok(
                 ApiResponse.<Void>builder()
@@ -125,5 +109,12 @@ public class AccountController {
                         .message("Account deactivated")
                         .build()
         );
+    }
+
+    private UUID getTenantId(Authentication authentication) {
+        return ((CustomUserDetails) authentication.getPrincipal())
+                .getUser()
+                .getTenant()
+                .getId();
     }
 }
