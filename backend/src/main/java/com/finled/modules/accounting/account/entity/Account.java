@@ -9,17 +9,17 @@ import java.util.UUID;
 
 @Entity
 @Table(
-        name = "accounts",
-        indexes = {
-                @Index(name = "idx_account_tenant", columnList = "tenant_id"),
-                @Index(name = "idx_account_code", columnList = "code")
-        },
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        name = "uk_tenant_account_code",
-                        columnNames = {"tenant_id", "code"}
-                )
-        }
+    name = "accounts",
+    uniqueConstraints = {
+        @UniqueConstraint(
+            name = "uk_tenant_account_code",
+            columnNames = {"tenant_id", "code"}
+        )
+    },
+    indexes = {
+        @Index(name = "idx_account_tenant", columnList = "tenant_id"),
+        @Index(name = "idx_account_code", columnList = "code")
+    }
 )
 @Getter
 @Setter
@@ -36,15 +36,22 @@ public class Account {
     @JoinColumn(name = "tenant_id", nullable = false)
     private Tenant tenant;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     private String code;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 150)
     private String name;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private AccountType type;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_account_id")
+    private Account parentAccount;
+
+    @Column(nullable = false)
+    private Boolean postable;
 
     @Column(nullable = false)
     private Boolean active;
