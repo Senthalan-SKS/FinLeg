@@ -3,8 +3,10 @@ package com.finled.modules.accounting.journal.service;
 import com.finled.common.exception.BadRequestException;
 import com.finled.modules.accounting.account.entity.Account;
 import com.finled.modules.accounting.account.repository.AccountRepository;
+import com.finled.modules.accounting.journal.dto.JournalEntryResponse;
 import com.finled.modules.accounting.journal.dto.CreateJournalEntryRequest;
 import com.finled.modules.accounting.journal.dto.CreateJournalLineRequest;
+import com.finled.modules.accounting.journal.dto.JournalLineResponse;
 import com.finled.modules.accounting.journal.entity.*;
 import com.finled.modules.accounting.journal.repository.*;
 import com.finled.modules.accounting.journal.validation.JournalValidationService;
@@ -88,8 +90,76 @@ public class JournalService {
         return journalEntry.getId();
     }
 
+    @Transactional(readOnly = true)
+    public JournalEntryResponse getJournalEntry(
+            UUID tenantId,
+            UUID journalEntryId
+    ) {
+
+        JournalEntry journalEntry = journalEntryRepository
+                .findByIdAndTenantId(journalEntryId, tenantId)
+                .orElseThrow(() ->
+                        new BadRequestException("Journal entry not found")
+                );
+
+        return map(journalEntry);
+    }
+
+    @Transactional(readOnly = true)
+    public List<JournalEntryResponse> getAllJournalEntries(
+            UUID tenantId
+    ) {
+
+        return journalEntryRepository
+                .findAllByTenantIdOrderByTransactionDateDescCreatedAtDesc(
+                        tenantId
+                )
+                .stream()
+                .map(this::map)
+                .toList();
+    }
+
     private String generateReferenceNumber() {
 
         return "JE-" + System.currentTimeMillis();
+    }
+
+    private JournalEntryResponse map(JournalEntry journalEntry) {
+
+        List<JournalLineResponse> lines = journalLineRepository
+                .findAllByJournalEntryIdOrderById(journalEntry.getId())
+                .stream()
+                .map(line -> JournalLineResponse.builder()
+                        .id(line.getId())
+                        .accountId(line.getAccount().getId())
+                        .accountCode(line.getAccount().getCode())
+                        .accountName(line.getAccount().getName())
+                        .debitAmount(line.getDebitAmount())
+                        .creditAmount(line.getCreditAmount())
+                        .lineDescription(line.getLineDescription())
+                        .build())
+                .toList();
+
+        return JournalEntryResponse.builder()
+                .id(journalEntry.getId())
+                .referenceNumber(journalEntry.getReferenceNumber())
+                .transactionDate(journalEntry.getTransactionDate())
+                .description(journalEntry.getDescription())
+                .totalDebit(journalEntry.getTotalDebit())
+                .totalCredit(journalEntry.getTotalCredit())
+                .status(journalEntry.getStatus())
+                .createdById(
+                        journalEntry.getCreatedBy() != null
+                                ? journalEntry.getCreatedBy().getId()
+                                : null
+                )
+                .createdByName(
+                        journalEntry.getCreatedBy() != null
+                                ? journalEntry.getCreatedBy().getFullName()
+                                : null
+                )
+                .createdAt(journalEntry.getCreatedAt())
+                .lines(lines)
+                .build();
     }
 }

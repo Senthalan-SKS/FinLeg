@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import { BarChart3, Home, PieChart, Settings, LogOut, ChevronRight } from 'lucide-react';
+import { BarChart3, Home, PieChart, Settings, LogOut } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 const sidebarItems = [
   { label: 'Dashboard', href: '/dashboard', icon: Home },
@@ -17,6 +17,13 @@ const sidebarItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('tokenType');
+    router.push('/login');
+  };
 
   return (
     <aside className="hidden md:flex fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 flex-col border-r border-border bg-background">
@@ -43,6 +50,7 @@ export function Sidebar() {
         <Button
           variant="ghost"
           className="w-full justify-start gap-2 text-destructive hover:text-destructive hover:bg-destructive/10"
+          onClick={handleLogout}
         >
           <LogOut className="h-4 w-4" />
           <span>Logout</span>
@@ -51,3 +59,4 @@ export function Sidebar() {
     </aside>
   );
 }
+

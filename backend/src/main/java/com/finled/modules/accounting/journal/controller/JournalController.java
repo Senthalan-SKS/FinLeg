@@ -2,6 +2,7 @@ package com.finled.modules.accounting.journal.controller;
 
 import com.finled.common.response.ApiResponse;
 import com.finled.modules.accounting.journal.dto.CreateJournalEntryRequest;
+import com.finled.modules.accounting.journal.dto.JournalEntryResponse;
 import com.finled.modules.accounting.journal.service.JournalService;
 import com.finled.modules.auth.security.userdetails.CustomUserDetails;
 import com.finled.modules.tenant.entity.Tenant;
@@ -12,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -43,6 +45,41 @@ public class JournalController {
                         .success(true)
                         .message("Journal posted successfully")
                         .data(journalId)
+                        .build()
+        );
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<JournalEntryResponse>> getJournal(
+            @PathVariable UUID id,
+            Authentication authentication
+    ) {
+        CustomUserDetails principal =
+                (CustomUserDetails) authentication.getPrincipal();
+        User currentUser = principal.getUser();
+        Tenant tenant = currentUser.getTenant();
+
+        return ResponseEntity.ok(
+                ApiResponse.<JournalEntryResponse>builder()
+                        .success(true)
+                        .data(journalService.getJournalEntry(tenant.getId(), id))
+                        .build()
+        );
+    }
+
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<JournalEntryResponse>>> getAllJournals(
+            Authentication authentication
+    ) {
+        CustomUserDetails principal =
+                (CustomUserDetails) authentication.getPrincipal();
+        User currentUser = principal.getUser();
+        Tenant tenant = currentUser.getTenant();
+
+        return ResponseEntity.ok(
+                ApiResponse.<List<JournalEntryResponse>>builder()
+                        .success(true)
+                        .data(journalService.getAllJournalEntries(tenant.getId()))
                         .build()
         );
     }
