@@ -30,10 +30,10 @@ export function Navbar() {
         { href: '/about', label: 'About' },
       ]
     : [
-        { href: '/dashboard', label: 'Dashboard' },
-        { href: '/journal-entries', label: 'Journal Entries' },
-        { href: '/ledger', label: 'Ledger' },
-        { href: '/reports', label: 'Reports' },
+        // { href: '/dashboard', label: 'Dashboard' },
+        // { href: '/journal-entries', label: 'Journal Entries' },
+        // { href: '/ledger', label: 'Ledger' },
+        // { href: '/reports', label: 'Reports' },
       ];
 
   return (

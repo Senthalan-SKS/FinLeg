@@ -66,6 +66,16 @@ export interface GeneralLedgerResponse {
   accounts: GeneralLedgerAccountResponse[];
 }
 
+export interface Account {
+  id: string;
+  code: string;
+  name: string;
+  type: string;
+  active: boolean;
+  postable: boolean;
+  parentAccountId: string | null;
+}
+
 export interface ApiResponse<T> {
   success: boolean;
   message?: string;

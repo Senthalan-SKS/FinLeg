@@ -1,13 +1,14 @@
 'use client';
 
 import React from 'react';
-import { BarChart3, Home, PieChart, Settings, LogOut } from 'lucide-react';
+import { BarChart3, Home, PieChart, Settings, LogOut, BookOpen } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 
 const sidebarItems = [
   { label: 'Dashboard', href: '/dashboard', icon: Home },
+  { label: 'Chart of Accounts', href: '/account-management', icon: BookOpen },
   { label: 'Journal Entries', href: '/journal-entries', icon: BarChart3 },
   { label: 'Ledger', href: '/ledger', icon: PieChart },
   { label: 'Trial Balance', href: '/trial-balance', icon: BarChart3 },

@@ -6,6 +6,7 @@ import { Input } from '@/app/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/app/components/ui/card';
 import { Badge } from '@/app/components/ui/badge';
 import { Plus, Search, RefreshCw, Layers, Calendar, Database } from 'lucide-react';
+import { JournalFormModal } from '@/app/components/fintech/journal-form-modal';
 import { formatCurrency, formatDate } from '@/app/lib/utils';
 
 interface JournalLine {
@@ -125,6 +126,7 @@ export default function JournalEntriesPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isUsingDemoData, setIsUsingDemoData] = useState(false);
+  const [showCreateModal, setShowCreateModal] = useState(false);
 
   const fetchJournals = async (forceDemo = false) => {
     if (forceDemo) {
@@ -231,7 +233,10 @@ export default function JournalEntriesPage() {
             <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
             Refresh
           </Button>
-          <Button className="gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-md hover:shadow-blue-500/10 active:scale-95 transition-all">
+          <Button
+            className="gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-md hover:shadow-blue-500/10 active:scale-95 transition-all"
+            onClick={() => setShowCreateModal(true)}
+          >
             <Plus className="h-4 w-4" />
             New Entry
           </Button>
@@ -388,6 +393,17 @@ export default function JournalEntriesPage() {
             </div>
           ))}
         </div>
+      )}
+
+      {/* Create Journal Modal */}
+      {showCreateModal && (
+        <JournalFormModal
+          onClose={() => setShowCreateModal(false)}
+          onSuccess={() => {
+            setShowCreateModal(false);
+            fetchJournals();
+          }}
+        />
       )}
     </div>
   );

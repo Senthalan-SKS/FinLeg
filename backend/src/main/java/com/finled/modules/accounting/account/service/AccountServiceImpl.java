@@ -129,6 +129,22 @@ public class AccountServiceImpl
 
         account.setName(request.getName());
 
+        if (request.getCode() != null) {
+            if (accountRepository.existsByTenantIdAndCode(
+                    tenantId,
+                    request.getCode()
+            )) {
+                throw new BadRequestException(
+                        "Account code already exists"
+                );
+            }
+            account.setCode(request.getCode());
+        }
+
+        if (request.getType() != null) {
+            account.setType(request.getType());
+        }
+
         if (request.getActive() != null) {
             account.setActive(request.getActive());
         }

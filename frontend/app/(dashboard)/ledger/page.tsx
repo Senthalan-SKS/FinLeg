@@ -364,33 +364,6 @@ export default function LedgerPage() {
             );
           })}
 
-          {/* Overall Totals */}
-          {ledgerData && (
-            <Card className="bg-muted/20 border-2">
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="font-semibold text-base">Grand Totals</span>
-                  <div className="flex items-center gap-6">
-                    <div className="text-right">
-                      <span className="text-muted-foreground text-xs block">Total Debits</span>
-                      <span className="font-mono font-bold text-blue-600">{formatCurrency(ledgerData.totalDebits)}</span>
-                    </div>
-                    <div className="text-right">
-                      <span className="text-muted-foreground text-xs block">Total Credits</span>
-                      <span className="font-mono font-bold text-green-600">{formatCurrency(ledgerData.totalCredits)}</span>
-                    </div>
-                    <div className="text-right">
-                      <span className="text-muted-foreground text-xs block">Net Difference</span>
-                      <span className={`font-mono font-bold ${ledgerData.totalDebits - ledgerData.totalCredits === 0 ? 'text-foreground' : 'text-destructive'}`}>
-                        {formatCurrency(ledgerData.totalDebits - ledgerData.totalCredits)}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
           {/* Pagination */}
           <Pagination
             currentPage={currentPage}
