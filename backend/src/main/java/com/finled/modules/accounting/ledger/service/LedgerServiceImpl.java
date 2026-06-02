@@ -3,6 +3,8 @@ package com.finled.modules.accounting.ledger.service;
 import com.finled.modules.accounting.ledger.dto.GeneralLedgerAccountResponse;
 import com.finled.modules.accounting.ledger.dto.GeneralLedgerResponse;
 import com.finled.modules.accounting.ledger.dto.GeneralLedgerRow;
+import com.finled.modules.accounting.ledger.dto.GeneralLedgerTransactionResponse;
+import com.finled.modules.accounting.ledger.dto.JournalLineWithEntryRow;
 import com.finled.modules.accounting.journal.entity.JournalStatus;
 import com.finled.modules.accounting.journal.repository.JournalLineRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -35,6 +39,30 @@ public class LedgerServiceImpl implements LedgerService {
                 JournalStatus.POSTED
         );
 
+        List<JournalLineWithEntryRow> lines = journalLineRepository.getJournalLinesWithEntry(
+                tenantId,
+                fromDate,
+                toDate,
+                JournalStatus.POSTED
+        );
+
+        Map<UUID, List<GeneralLedgerTransactionResponse>> transactionsByAccount = new HashMap<>();
+        for (JournalLineWithEntryRow line : lines) {
+            transactionsByAccount
+                    .computeIfAbsent(line.getAccountId(), k -> new ArrayList<>())
+                    .add(
+                            GeneralLedgerTransactionResponse.builder()
+                                    .journalEntryId(line.getJournalEntryId())
+                                    .referenceNumber(line.getReferenceNumber())
+                                    .transactionDate(line.getTransactionDate())
+                                    .description(line.getDescription())
+                                    .lineDescription(line.getLineDescription())
+                                    .debitAmount(line.getDebitAmount())
+                                    .creditAmount(line.getCreditAmount())
+                                    .build()
+                    );
+        }
+
         BigDecimal totalDebits = BigDecimal.ZERO;
         BigDecimal totalCredits = BigDecimal.ZERO;
         List<GeneralLedgerAccountResponse> accounts = new ArrayList<>();
@@ -56,6 +84,11 @@ public class LedgerServiceImpl implements LedgerService {
                             .totalDebit(debit)
                             .totalCredit(credit)
                             .balance(balance)
+                            .transactions(
+                                    transactionsByAccount.getOrDefault(
+                                            row.getAccountId(), List.of()
+                                    )
+                            )
                             .build()
             );
         }

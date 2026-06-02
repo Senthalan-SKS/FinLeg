@@ -1,10 +1,11 @@
 package com.finled.modules.accounting.ledger.dto;
-   
+
 import com.finled.modules.accounting.account.entity.AccountType;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -24,4 +25,6 @@ public class GeneralLedgerAccountResponse {
     private BigDecimal totalCredit;
 
     private BigDecimal balance;
+
+    private List<GeneralLedgerTransactionResponse> transactions;
 }

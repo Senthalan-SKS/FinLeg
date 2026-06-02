@@ -38,3 +38,36 @@ export interface StatData {
   change?: number;
   currency?: boolean;
 }
+
+export interface GeneralLedgerTransactionResponse {
+  journalEntryId: string;
+  referenceNumber: string;
+  transactionDate: string;
+  description: string;
+  lineDescription: string;
+  debitAmount: number;
+  creditAmount: number;
+}
+
+export interface GeneralLedgerAccountResponse {
+  accountId: string;
+  accountCode: string;
+  accountName: string;
+  accountType: string;
+  totalDebit: number;
+  totalCredit: number;
+  balance: number;
+  transactions: GeneralLedgerTransactionResponse[];
+}
+
+export interface GeneralLedgerResponse {
+  totalDebits: number;
+  totalCredits: number;
+  accounts: GeneralLedgerAccountResponse[];
+}
+
+export interface ApiResponse<T> {
+  success: boolean;
+  message?: string;
+  data: T;
+}
