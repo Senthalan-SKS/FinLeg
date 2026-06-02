@@ -4,7 +4,7 @@ import com.finled.modules.accounting.ledger.dto.GeneralLedgerAccountResponse;
 import com.finled.modules.accounting.ledger.dto.GeneralLedgerResponse;
 import com.finled.modules.accounting.ledger.dto.GeneralLedgerRow;
 import com.finled.modules.accounting.journal.entity.JournalStatus;
-import com.finled.modules.accounting.ledger.repository.JournalLineRepository;
+import com.finled.modules.accounting.journal.repository.JournalLineRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
