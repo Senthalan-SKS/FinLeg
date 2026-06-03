@@ -1,16 +1,10 @@
 'use client';
 
 import { StatCard } from '@/app/components/fintech/stat-card';
-import { TransactionList } from '@/app/components/fintech/transaction-list';
 import { FinanceChart } from '@/app/components/fintech/finance-chart';
 import { TrendingUp, DollarSign, PieChart, Activity } from 'lucide-react';
 
-const mockTransactions = [
-  { id: '1', account: 'Checking', description: 'Office Supplies', amount: 125.50, type: 'debit' as const, date: 'Dec 1' },
-  { id: '2', account: 'Savings', description: 'Interest Credit', amount: 50.00, type: 'credit' as const, date: 'Dec 1' },
-  { id: '3', account: 'Checking', description: 'Client Payment', amount: 1200.00, type: 'credit' as const, date: 'Nov 30' },
-  { id: '4', account: 'Checking', description: 'Equipment Purchase', amount: 450.00, type: 'debit' as const, date: 'Nov 29' },
-];
+
 
 const mockChartData = [
   { name: 'Jan', value: 45000 },
@@ -87,8 +81,7 @@ export default function DashboardPage() {
         />
       </div>
 
-      {/* Recent Transactions */}
-      <TransactionList transactions={mockTransactions} title="Recent Transactions" />
+
     </div>
   );
 }
