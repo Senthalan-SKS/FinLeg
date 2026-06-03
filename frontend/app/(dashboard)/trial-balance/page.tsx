@@ -20,25 +20,14 @@ interface TrialBalanceRow {
 
 function computeTrialBalance(accounts: GeneralLedgerAccountResponse[]): TrialBalanceRow[] {
   return accounts.map((a) => {
-    const isDebitType = a.accountType === 'ASSET' || a.accountType === 'EXPENSE';
-    if (a.balance >= 0) {
-      return {
-        accountId: a.accountId,
-        code: a.accountCode,
-        name: a.accountName,
-        type: a.accountType,
-        debit: isDebitType ? a.balance : 0,
-        credit: isDebitType ? 0 : a.balance,
-      };
-    }
-    const absBalance = Math.abs(a.balance);
     return {
       accountId: a.accountId,
       code: a.accountCode,
       name: a.accountName,
       type: a.accountType,
-      debit: isDebitType ? 0 : absBalance,
-      credit: isDebitType ? absBalance : 0,
+      // Positive means Debit, Negative means Credit
+      debit: a.balance > 0 ? a.balance : 0,
+      credit: a.balance < 0 ? Math.abs(a.balance) : 0,
     };
   });
 }
