@@ -43,7 +43,7 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
             <div className="text-2xl font-bold gradient-text group-hover:scale-105 transition-transform">
-              FinLeg
+              FinLed
             </div>
           </Link>
 

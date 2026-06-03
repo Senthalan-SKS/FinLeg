@@ -22,7 +22,7 @@ export default function AboutPage() {
       <section className="relative py-20 px-4 bg-gradient-to-b from-blue-50/50 to-background dark:from-blue-950/20">
         <div className="max-w-6xl mx-auto">
           <div className="text-center space-y-6 mb-16">
-            <h1 className="text-5xl md:text-6xl font-bold gradient-text">About FinLeg</h1>
+            <h1 className="text-5xl md:text-6xl font-bold gradient-text">About FinLed</h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Revolutionizing financial management for modern businesses since 2024.
             </p>
@@ -61,12 +61,12 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="space-y-4 text-muted-foreground">
               <p>
-                At FinLeg, we believe that financial management should be simple, accessible, and
+                At FinLed, we believe that financial management should be simple, accessible, and
                 affordable for everyone. Our mission is to empower businesses and accountants with
                 modern tools that make financial tracking and reporting effortless.
               </p>
               <p>
-                Founded in 2024, FinLeg has quickly become the trusted choice for financial
+                Founded in 2024, FinLed has quickly become the trusted choice for financial
                 professionals who demand reliability, security, and ease of use.
               </p>
             </CardContent>
@@ -148,7 +148,7 @@ export default function AboutPage() {
                   <Mail className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="font-semibold mb-1">Email</h3>
-                    <p className="text-muted-foreground">hello@finleg.com</p>
+                    <p className="text-muted-foreground">hello@FinLed.com</p>
                   </div>
                 </div>
 

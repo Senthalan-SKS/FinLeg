@@ -82,7 +82,7 @@ export default function LoginPage() {
       <CardHeader className="space-y-1">
         <div className="flex items-center justify-center mb-4">
           <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent animate-pulse-soft">
-            FinLeg
+            FinLed
           </div>
         </div>
         <CardTitle className="text-center text-2xl font-bold tracking-tight">Welcome Back</CardTitle>

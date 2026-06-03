@@ -27,7 +27,7 @@ export default function ForgotPasswordPage() {
     <Card>
       <CardHeader className="space-y-1">
         <div className="flex items-center justify-center mb-4">
-          <div className="text-3xl font-bold text-primary">FinLeg</div>
+          <div className="text-3xl font-bold text-primary">FinLed</div>
         </div>
         <CardTitle className="text-center">Reset Password</CardTitle>
         <CardDescription className="text-center">

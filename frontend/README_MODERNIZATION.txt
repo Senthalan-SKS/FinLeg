@@ -1,5 +1,5 @@
 ╔════════════════════════════════════════════════════════════════════════════╗
-║                    FINLEG FRONTEND MODERNIZATION                         ║
+║                    FinLed FRONTEND MODERNIZATION                         ║
 ║                      ✨ PRODUCTION READY ✨                              ║
 ╚════════════════════════════════════════════════════════════════════════════╝
 
@@ -250,7 +250,7 @@ Quality: Industry Grade
 Date: May 26, 2024
 Version: 1.0
 
-Your FinLeg frontend has been successfully transformed into an 
+Your FinLed frontend has been successfully transformed into an 
 industry-grade professional UI/UX experience with modern design, 
 smooth animations, and complete responsiveness.
 

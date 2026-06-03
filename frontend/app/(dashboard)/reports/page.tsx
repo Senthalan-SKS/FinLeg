@@ -73,7 +73,7 @@ export default function ReportsPage() {
       </div>
 
       {/* Generate New Report */}
-      <Card>
+      {/* <Card>
         <CardHeader>
           <CardTitle>Generate New Report</CardTitle>
         </CardHeader>
@@ -88,7 +88,7 @@ export default function ReportsPage() {
             </div>
           </div>
         </CardContent>
-      </Card>
+      </Card> */}
     </div>
   );
 }

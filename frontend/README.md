@@ -1,4 +1,4 @@
-# FinLeg Frontend
+# FinLed Frontend
 
 A modern, professional financial ledger management system built with Next.js 16, React 19, and TypeScript.
 

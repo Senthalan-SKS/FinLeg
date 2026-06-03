@@ -19,7 +19,7 @@ export default function MarketingLayout({
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
             {/* Brand */}
             <div className="space-y-4">
-              <h3 className="text-lg font-bold gradient-text">FinLeg</h3>
+              <h3 className="text-lg font-bold gradient-text">FinLed</h3>
               <p className="text-sm text-muted-foreground max-w-xs">
                 Professional financial ledger management for modern businesses.
               </p>
@@ -68,7 +68,7 @@ export default function MarketingLayout({
           <div className="border-t border-border pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <p className="text-sm text-muted-foreground">
-                &copy; 2024 FinLeg. All rights reserved.
+                &copy; 2024 FinLed. All rights reserved.
               </p>
               <div className="flex gap-4">
                 <span className="text-xs text-muted-foreground">🌍 Global</span>

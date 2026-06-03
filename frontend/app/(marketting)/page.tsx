@@ -38,19 +38,19 @@ export default function HomePage() {
     {
       name: 'Sarah Johnson',
       role: 'CFO, Tech Startup',
-      content: 'FinLeg transformed how we manage finances. The intuitive interface and powerful reports have been game-changers.',
+      content: 'FinLed transformed how we manage finances. The intuitive interface and powerful reports have been game-changers.',
       initials: 'SJ'
     },
     {
       name: 'Michael Chen',
       role: 'Accounting Manager',
-      content: 'We cut our accounting time by 60% using FinLeg. The automation features are incredibly powerful.',
+      content: 'We cut our accounting time by 60% using FinLed. The automation features are incredibly powerful.',
       initials: 'MC'
     },
     {
       name: 'Emma Rodriguez',
       role: 'Freelance Accountant',
-      content: 'As a freelancer managing multiple clients, FinLeg has been essential. Professional and easy to use.',
+      content: 'As a freelancer managing multiple clients, FinLed has been essential. Professional and easy to use.',
       initials: 'ER'
     }
   ];
@@ -261,7 +261,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
               <div>
-                <h2 className="text-4xl md:text-5xl font-bold mb-4">Why Choose FinLeg?</h2>
+                <h2 className="text-4xl md:text-5xl font-bold mb-4">Why Choose FinLed?</h2>
                 <p className="text-lg text-muted-foreground">
                   We've built the most intuitive and powerful financial management platform for modern businesses.
                 </p>
@@ -321,7 +321,7 @@ export default function HomePage() {
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-4xl md:text-5xl font-bold">Loved by Finance Professionals</h2>
             <p className="text-lg text-muted-foreground">
-              Hear from businesses that have transformed their financial management with FinLeg
+              Hear from businesses that have transformed their financial management with FinLed
             </p>
           </div>
 
@@ -473,7 +473,7 @@ export default function HomePage() {
           <div className="space-y-4">
             <h2 className="text-4xl md:text-5xl font-bold">Ready to Transform Your Finance?</h2>
             <p className="text-lg text-muted-foreground">
-              Join thousands of professionals who trust FinLeg for their financial management.
+              Join thousands of professionals who trust FinLed for their financial management.
               Start your free trial today—no credit card required.
             </p>
           </div>

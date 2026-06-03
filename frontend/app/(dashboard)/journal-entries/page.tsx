@@ -30,116 +30,18 @@ interface JournalEntry {
   lines: JournalLine[];
 }
 
-const fallbackJournals: JournalEntry[] = [
-  {
-    id: 'je-1',
-    referenceNumber: 'JE-1717281001',
-    transactionDate: '2026-06-01',
-    description: 'Office rent payment',
-    totalDebit: 1500.00,
-    totalCredit: 1500.00,
-    status: 'POSTED',
-    lines: [
-      {
-        id: 'jl-1',
-        accountId: 'acc-1',
-        accountName: 'Rent Expense',
-        accountCode: '5100',
-        debitAmount: 1500.00,
-        creditAmount: 0.0,
-        lineDescription: 'Rent for June 2026'
-      },
-      {
-        id: 'jl-2',
-        accountId: 'acc-2',
-        accountName: 'Cash',
-        accountCode: '1010',
-        debitAmount: 0.0,
-        creditAmount: 1500.00,
-        lineDescription: 'Rent payment cash'
-      }
-    ]
-  },
-  {
-    id: 'je-2',
-    referenceNumber: 'JE-1717281002',
-    transactionDate: '2026-05-28',
-    description: 'Consulting revenue received',
-    totalDebit: 4500.00,
-    totalCredit: 4500.00,
-    status: 'POSTED',
-    lines: [
-      {
-        id: 'jl-3',
-        accountId: 'acc-3',
-        accountName: 'Cash',
-        accountCode: '1010',
-        debitAmount: 4500.00,
-        creditAmount: 0.0,
-        lineDescription: 'Consulting fees invoice #120'
-      },
-      {
-        id: 'jl-4',
-        accountId: 'acc-4',
-        accountName: 'Service Revenue',
-        accountCode: '4000',
-        debitAmount: 0.0,
-        creditAmount: 4500.00,
-        lineDescription: 'Consulting services'
-      }
-    ]
-  },
-  {
-    id: 'je-3',
-    referenceNumber: 'JE-1717281003',
-    transactionDate: '2026-05-28',
-    description: 'Purchase office equipment',
-    totalDebit: 850.00,
-    totalCredit: 850.00,
-    status: 'POSTED',
-    lines: [
-      {
-        id: 'jl-5',
-        accountId: 'acc-5',
-        accountName: 'Office Equipment',
-        accountCode: '1800',
-        debitAmount: 850.00,
-        creditAmount: 0.0,
-        lineDescription: 'New desk and chair'
-      },
-      {
-        id: 'jl-6',
-        accountId: 'acc-6',
-        accountName: 'Accounts Payable',
-        accountCode: '2010',
-        debitAmount: 0.0,
-        creditAmount: 850.00,
-        lineDescription: 'Bought on credit from DeskCorp'
-      }
-    ]
-  }
-];
 
 export default function JournalEntriesPage() {
   const [entries, setEntries] = useState<JournalEntry[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [isUsingDemoData, setIsUsingDemoData] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
 
-  const fetchJournals = async (forceDemo = false) => {
-    if (forceDemo) {
-      setEntries(fallbackJournals);
-      setIsUsingDemoData(true);
-      setError(null);
-      setIsLoading(false);
-      return;
-    }
+  const fetchJournals = async () => {
 
     setIsLoading(true);
     setError(null);
-    setIsUsingDemoData(false);
 
     try {
       const token = localStorage.getItem('token');
@@ -170,8 +72,6 @@ export default function JournalEntriesPage() {
       console.error('Error fetching journals:', err);
       setError(err.message || 'Could not connect to the API server. Backend may be offline or API is not ready.');
       // Auto fallback to demo data so user doesn't get a blank screen
-      setEntries(fallbackJournals);
-      setIsUsingDemoData(true);
     } finally {
       setIsLoading(false);
     }
@@ -244,12 +144,12 @@ export default function JournalEntriesPage() {
       </div>
 
       {/* Info status if using Demo data or API error */}
-      {isUsingDemoData && (
-        <div className="p-3 rounded-lg bg-amber-500/10 dark:bg-amber-500/5 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 animate-slideInDown shadow-sm">
+      {error && (
+        <div className="p-3 rounded-lg bg-amber-500/10 dark:bg-amber-500/5 border border-amber-500/20 text-amber-600 dark:text-shadow-red-500 text-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 animate-slideInDown shadow-sm">
           <div className="flex items-center gap-2">
             <Database className="h-4 w-4 shrink-0" />
             <span>
-              {error ? `API Error: ${error}. Showing demo data instead.` : 'Viewing local mock ledger entries.'}
+              {error ? `API Error: ${error}` : 'Unexpected error occurred.'} 
             </span>
           </div>
           <Button 

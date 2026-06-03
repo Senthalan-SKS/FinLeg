@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FinLeg - Financial Ledger",
+  title: "FinLed - Financial Ledger",
   description: "Professional financial ledger management system",
 };
 
