@@ -23,7 +23,7 @@ export function Sidebar() {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('tokenType');
-    router.push('/login');
+    router.push('/');
   };
 
   return (

@@ -1,5 +1,5 @@
-import { redirect } from 'next/navigation';
+import LandingPage from '@/app/components/landingPage/landingPage';
 
 export default function Home() {
-  redirect('/dashboard');
+  return <LandingPage/>;
 }
