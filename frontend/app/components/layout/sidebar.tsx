@@ -12,8 +12,8 @@ const sidebarItems = [
   { label: 'Journal Entries', href: '/journal-entries', icon: BarChart3 },
   { label: 'Ledger', href: '/ledger', icon: PieChart },
   { label: 'Trial Balance', href: '/trial-balance', icon: BarChart3 },
-  { label: 'Reports', href: '/reports', icon: PieChart },
-  { label: 'Settings', href: '/settings', icon: Settings },
+  // { label: 'Reports', href: '/reports', icon: PieChart },
+  // { label: 'Settings', href: '/settings', icon: Settings },
 ];
 
 export function Sidebar() {
